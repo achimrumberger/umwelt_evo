@@ -1,3 +1,5 @@
+## ---- evo-env ----
+
 EvoEnvironment <- R6Class("EvoEnvironment",
                           public = list(
                             temperature = NULL,

@@ -16,13 +16,15 @@ We will create a very rudumentary environment, with temperature and food, in whi
 knitr::opts_chunk$set(echo = TRUE)
 library(R6)
 library(dplyr)
+knitr::read_chunk("EvoEnvironment.R")
+knitr::read_chunk("EvoOrganism.R")
+
 ```
 
 ## Create Environment Model Class 
 
 We want to use R6 classes to represent out environment 
-```{r}
-source("EvoEnvironment.R")
+```{r evo-env}
 ```
 
 ## Create environment
@@ -43,7 +45,5 @@ for(i in 1:100) {
 ## Create our first organism
 The first organism has growth rate dependent on the temperature and nutrients of the environment.
 In this first try, nutrients will not be depleted by the organism
-```{r }
-source("EvoOrganism.R")
-
+```{r evo-org}
 ```
