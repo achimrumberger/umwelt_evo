@@ -98,20 +98,22 @@ EvoOrganism <- R6Class("EvoOrganism",
                        self$envNutrient <- val
                      },
                      determineGrowthrate = function() {
-                      paramTemp <-  determineTempParam()
-                      paramNutrie <- determineNutrientParam()
+                      paramTemp <-  private$determineTempParam()
+                      paramNutrie <- private$determineNutrientParam()
                      
                      
                        self$growthrate <- paramTemp * paramNutrie + 1
+                       cat(paste0("paramtemp: ",paramTemp, " paramNutrie: ",paramNutrie,".\n"))
                      },
                      determineOrgCount = function() {
                        self$orgCount = self$orgCount * self$growthrate
+                       cat(paste0("orgCount: ",self$orgCount, ".\n"))
                      }
                    ),
                    private = list(
                      determineTempParam = function() {
                        if(self$envNutrient > 0){
-                       t1 <- abs((self$envTemperature - self$tempOpt)/self$tempOpt)
+                       t1 <- abs(self$envTemperature/self$tempOpt)
                        return(t1)
                        }
                        else{
@@ -120,7 +122,7 @@ EvoOrganism <- R6Class("EvoOrganism",
                      },
                      determineNutrientParam = function() {
                         if(self$envNutrient > self$nutrientMin-1) {
-                       return(abs((self$envNutrient - self$nutrientMin)/self$nutrientMin))
+                       return(abs(self$envNutrient/self$nutrientMin))
                       } else {
                          return(0)
                       }
