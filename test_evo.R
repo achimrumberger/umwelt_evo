@@ -38,3 +38,22 @@ test_that('org count correct with multiple runs', {
   expect_equal(evoOrg3$growthrate, 2)
 })
 
+evoOrg4 <- EvoOrganism$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+for (i in 1:2) {
+  evoOrg4$set_envNutrient(20)
+  evoOrg4$set_envTemperature(20)
+  evoOrg4$determineGrowthrate()
+  evoOrg4$determineOrgCount()
+}
+test_that('org count correct with for loop runs', {
+  expect_equal(evoOrg4$orgCount, 4)
+  expect_equal(evoOrg4$growthrate, 2)
+})
+
+
+envl1 <- EnvList[[1]]
+evoOrg5 <- EvoOrganism$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+evoOrg5$set_envNutrient(envl1$nutrients)
+evoOrg5$set_envTemperature(envl1$temperature)
+evoOrg5$determineGrowthrate()
+evoOrg5$determineOrgCount()

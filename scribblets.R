@@ -13,3 +13,7 @@ hist(x4)
 x5 <- lapply(EnvList, function(x){return(x$nutrients) })
 x6 <- unlist(x5)
 hist(x6)
+
+
+library(ggplot2)
+qplot(x4, geom="histogram") 

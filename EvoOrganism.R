@@ -39,8 +39,6 @@ EvoOrganism <- R6Class("EvoOrganism",
                          determineGrowthrate = function() {
                            paramTemp <-  private$determineTempParam()
                            paramNutrie <- private$determineNutrientParam()
-                           
-                           
                            self$growthrate <- paramTemp * paramNutrie + 1
                            cat(paste0("paramtemp: ",paramTemp, " paramNutrie: ",paramNutrie,".\n"))
                          },
