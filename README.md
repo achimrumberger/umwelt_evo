@@ -96,8 +96,6 @@ EvoOrganism <- R6Class("EvoOrganism",
                          determineGrowthrate = function() {
                            paramTemp <-  private$determineTempParam()
                            paramNutrie <- private$determineNutrientParam()
-                           
-                           
                            self$growthrate <- paramTemp * paramNutrie + 1
                            cat(paste0("paramtemp: ",paramTemp, " paramNutrie: ",paramNutrie,".\n"))
                          },
@@ -130,3 +128,32 @@ EvoOrganism <- R6Class("EvoOrganism",
                        
 )
 ```
+
+Our first live cycle
+--------------------
+
+### Create list of organism. The length of this list is the same as that of the environment list.
+
+``` r
+OrgList <- list()
+
+for (j in 1:length(EnvList) ) {
+  OrgList[[j]] <- EvoOrganism$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+}
+```
+
+### Read the envirnonment data
+
+Read the environment data and let the organism grow
+
+### first Evaluation - a frequency distribution of organism counts
+
+``` r
+x3 <- lapply(OrgList, function(x){return(x$orgCount) })
+x4 <- unlist(x3)
+qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', main = 'Organism Growth') 
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)

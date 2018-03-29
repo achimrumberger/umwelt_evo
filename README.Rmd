@@ -51,7 +51,7 @@ In this first try, nutrients will not be depleted by the organism
 ```
 
 ## Our first live cycle
-### Create list of organism. The length of this list is the same as the environment list. 
+### Create list of organism. The length of this list is the same as that of the environment list. 
 ```{r}
 OrgList <- list()
 
@@ -62,7 +62,7 @@ for (j in 1:length(EnvList) ) {
 
 ### Read the envirnonment data
 Read the environment data and let the organism grow
-```{r}
+```{r echo=FALSE, results="hide"}
 for(kk in 1:1) {
   for (k in 1:length(OrgList)) {
     evoOrg <- OrgList[[k]]
