@@ -33,7 +33,7 @@ We want to use R6 classes to represent out environment
 Up to now there seems to be no way, to create data.frames or matrixes with custom S4 or R6 objects.
 
 
-```{r }
+```{r make_env_list}
 #sample(100, 1, replace = TRUE)
 #env2 <- EvoEnvironment$new(sample(40, 1, replace = TRUE), sample(100, 1, replace = TRUE))
 EnvList <- list()
@@ -52,7 +52,7 @@ In this first try, nutrients will not be depleted by the organism
 
 ## Our first live cycle
 ### Create list of organism. The length of this list is the same as that of the environment list. 
-```{r}
+```{r make_org_list}
 OrgList <- list()
 
 for (j in 1:length(EnvList) ) {
@@ -62,7 +62,7 @@ for (j in 1:length(EnvList) ) {
 
 ### Read the envirnonment data
 Read the environment data and let the organism grow
-```{r echo=FALSE, results="hide"}
+```{r let_it_grow, echo=FALSE, results="hide"}
 for(kk in 1:1) {
   for (k in 1:length(OrgList)) {
     evoOrg <- OrgList[[k]]
@@ -76,9 +76,9 @@ for(kk in 1:1) {
 }
 ```
 ### first Evaluation - a frequency distribution of organism counts
-```{r}
+```{r org_growth_graph, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
 x3 <- lapply(OrgList, function(x){return(x$orgCount) })
 x4 <- unlist(x3)
-qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', main = 'Organism Growth') 
+qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', main = 'Organism Growth', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
 
 ```

@@ -148,12 +148,4 @@ Read the environment data and let the organism grow
 
 ### first Evaluation - a frequency distribution of organism counts
 
-``` r
-x3 <- lapply(OrgList, function(x){return(x$orgCount) })
-x4 <- unlist(x3)
-qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', main = 'Organism Growth') 
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](README_files/figure-markdown_github/org_growth_graph-1.png)
