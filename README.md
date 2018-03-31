@@ -57,6 +57,7 @@ Create our first organism
 The first organism has growth rate dependent on the temperature and nutrients of the environment. In this first try, nutrients will not be depleted by the organism
 
 ``` r
+source("gaussie.R")
 EvoOrganism <- R6Class("EvoOrganism",
                        public = list(
                          tempOpt=NULL,
@@ -148,4 +149,11 @@ Read the environment data and let the organism grow
 
 ### first Evaluation - a frequency distribution of organism counts
 
-![](README_files/figure-markdown_github/org_growth_graph-1.png)
+![](README_files/figure-markdown_github/org_growth_graph-1.png) \#\# Evolution with temperature Gauss function
+
+``` r
+gaussie <- function(x, mw, sd) {
+  y = (1/(sd*sqrt(2*pi)))*exp(-((x-mw)^2/sd^2))
+  return(y)
+}
+```

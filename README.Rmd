@@ -20,7 +20,7 @@ library(ggplot2)
 
 knitr::read_chunk("EvoEnvironment.R")
 knitr::read_chunk("EvoOrganism.R")
-
+knitr::read_chunk("gaussie.R")
 ```
 
 ## Create Environment Model Class 
@@ -81,4 +81,7 @@ x3 <- lapply(OrgList, function(x){return(x$orgCount) })
 x4 <- unlist(x3)
 qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', main = 'Organism Growth', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
 
+```
+## Evolution with temperature Gauss function 
+``` {r gauss-function}
 ```

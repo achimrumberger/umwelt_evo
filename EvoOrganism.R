@@ -1,5 +1,5 @@
 ## ---- evo-org ----
-
+source("gaussie.R")
 EvoOrganism <- R6Class("EvoOrganism",
                        public = list(
                          tempOpt=NULL,
@@ -70,3 +70,4 @@ EvoOrganism <- R6Class("EvoOrganism",
                        
                        
 )
+
