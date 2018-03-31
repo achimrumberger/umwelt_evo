@@ -33,6 +33,8 @@ gaussie <- function(x, mw, sd) {
   return(y)
 }
 
-x = 20
+x = 50
 mw = 50
-sd = 400
+sd = 10
+
+gaussie(x, mw, sd)

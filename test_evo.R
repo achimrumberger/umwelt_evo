@@ -2,7 +2,7 @@ library(testthat)
 library(R6)
 
 source("EvoOrganism.R")
-
+source("EvoOrganismGauss.R")
 context('evoOrg function correctly')
 evoOrg1 <- EvoOrganism$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
 evoOrg1$set_envNutrient(20)
@@ -57,3 +57,14 @@ evoOrg5$set_envNutrient(envl1$nutrients)
 evoOrg5$set_envTemperature(envl1$temperature)
 evoOrg5$determineGrowthrate()
 evoOrg5$determineOrgCount()
+
+
+evoOrg11 <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+evoOrg11$set_envNutrient(20)
+evoOrg11$set_envTemperature(20)
+evoOrg11$determineGrowthrate()
+evoOrg11$determineOrgCount()
+test_that('org count correct', {
+  expect_equal(ceiling(evoOrg11$orgCount), 5)
+  expect_equal(ceiling(evoOrg11$growthrate), 5)
+})

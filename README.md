@@ -94,6 +94,12 @@ EvoOrganism <- R6Class("EvoOrganism",
                          set_envNutrient=function(val) {
                            self$envNutrient <- val
                          },
+                         get_envTemperature=function() {
+                           return(self$envTemperature)
+                         },
+                         get_tempOpt=function() {
+                           return(self$tempOpt) 
+                         },
                          determineGrowthrate = function() {
                            paramTemp <-  private$determineTempParam()
                            paramNutrie <- private$determineNutrientParam()
@@ -107,7 +113,7 @@ EvoOrganism <- R6Class("EvoOrganism",
                        ),
                        private = list(
                          determineTempParam = function() {
-                           if(self$envNutrient > 0){
+                           if(self$envTemperature > 0){
                              t1 <- abs(self$envTemperature/self$tempOpt)
                              return(t1)
                            }
@@ -157,3 +163,49 @@ gaussie <- function(x, mw, sd) {
   return(y)
 }
 ```
+
+EvoOrganism using this gaussian function to calculate growth rate
+-----------------------------------------------------------------
+
+``` r
+library("R6")
+source("gaussie.R")
+EvoOrganismGauss <- R6Class(
+  "EvoOrganismGauss",
+  inherit = EvoOrganism,
+  
+  private = list(
+    determineTempParam = function() {
+      tx <- super$get_envTemperature()
+      tmw <- super$get_tempOpt()
+      tsd <- 10
+      if (tx > 0.001) {
+        t0 <- gaussie(tx, tmw, tsd)
+        cat(paste0("gaussie: ", t0, ".\n"))
+        t1 <- t0 * 100
+        return(t1)
+      }
+      else{
+        return(0)
+      }
+    }
+  )
+  
+)
+```
+
+### Create list of our 'gaussian' organism. The length of this list is the same as that of the environment list.
+
+``` r
+OrgListGauss <- list()
+
+for (j in 1:length(EnvList) ) {
+  OrgListGauss[[j]] <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+}
+```
+
+### Gaussian growth
+
+### first Evaluation - a frequency distribution of gaussian organism counts
+
+![](README_files/figure-markdown_github/gaussian_org_growth_graph-1.png)

@@ -36,6 +36,12 @@ EvoOrganism <- R6Class("EvoOrganism",
                          set_envNutrient=function(val) {
                            self$envNutrient <- val
                          },
+                         get_envTemperature=function() {
+                           return(self$envTemperature)
+                         },
+                         get_tempOpt=function() {
+                           return(self$tempOpt) 
+                         },
                          determineGrowthrate = function() {
                            paramTemp <-  private$determineTempParam()
                            paramNutrie <- private$determineNutrientParam()
@@ -49,7 +55,7 @@ EvoOrganism <- R6Class("EvoOrganism",
                        ),
                        private = list(
                          determineTempParam = function() {
-                           if(self$envNutrient > 0){
+                           if(self$envTemperature > 0){
                              t1 <- abs(self$envTemperature/self$tempOpt)
                              return(t1)
                            }

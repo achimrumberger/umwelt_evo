@@ -20,6 +20,7 @@ library(ggplot2)
 
 knitr::read_chunk("EvoEnvironment.R")
 knitr::read_chunk("EvoOrganism.R")
+knitr::read_chunk("EvoOrganismGauss.R")
 knitr::read_chunk("gaussie.R")
 ```
 
@@ -62,7 +63,7 @@ for (j in 1:length(EnvList) ) {
 
 ### Read the envirnonment data
 Read the environment data and let the organism grow
-```{r let_it_grow, echo=FALSE, results="hide"}
+```{r let_it_grow, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
 for(kk in 1:1) {
   for (k in 1:length(OrgList)) {
     evoOrg <- OrgList[[k]]
@@ -84,4 +85,36 @@ qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', ma
 ```
 ## Evolution with temperature Gauss function 
 ``` {r gauss-function}
+```
+## EvoOrganism using this gaussian function to calculate growth rate
+``` {r evo-org-gauss}
+```
+### Create list of our 'gaussian' organism. The length of this list is the same as that of the environment list. 
+```{r make_gaussian_org_list}
+OrgListGauss <- list()
+
+for (j in 1:length(EnvList) ) {
+  OrgListGauss[[j]] <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+}
+```
+### Gaussian growth
+```{r let_it_grow_guassian, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
+for(kk in 1:1) {
+  for (k in 1:length(OrgListGauss)) {
+    evoOrgGauss <- OrgListGauss[[k]]
+    envl <- EnvList[[k]]
+    evoOrgGauss$set_envTemperature(envl$temperature)
+    evoOrgGauss$set_envNutrient(envl$nutrients)
+    evoOrgGauss$determineGrowthrate()
+    evoOrgGauss$determineOrgCount()
+  }
+  kk <- kk + 1
+}
+```
+### first Evaluation - a frequency distribution of gaussian organism counts
+```{r gaussian_org_growth_graph, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
+x3gauss <- lapply(OrgListGauss, function(x){return(x$orgCount) })
+x4gauss <- unlist(x3gauss)
+qplot(x4gauss, geom="histogram", xlab = 'number of organisms in one environment', main = 'Gauss Organism Growth', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
+
 ```
