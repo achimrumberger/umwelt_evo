@@ -94,6 +94,12 @@ EvoOrganism <- R6Class("EvoOrganism",
                          set_envNutrient=function(val) {
                            self$envNutrient <- val
                          },
+                         get_envNutrient=function() {
+                           return(self$envNutrient)
+                         },
+                         get_nutrientMin=function() {
+                           return(self$nutrientMin) 
+                         },
                          get_envTemperature=function() {
                            return(self$envTemperature)
                          },
@@ -155,11 +161,27 @@ Read the environment data and let the organism grow
 
 ### first Evaluation - a frequency distribution of organism counts
 
-![](README_files/figure-markdown_github/org_growth_graph-1.png) \#\# Evolution with temperature Gauss function
+![](README_files/figure-markdown_github/org_growth_graph-1.png)
+
+Evolution with temperature Gauss function
+-----------------------------------------
 
 ``` r
 gaussie <- function(x, mw, sd) {
   y = (1/(sd*sqrt(2*pi)))*exp(-((x-mw)^2/sd^2))
+  return(y)
+}
+```
+
+Evolution with nutrient logistic function: the organismcount is supposed to double when it has enough nutrients
+---------------------------------------------------------------------------------------------------------------
+
+``` r
+loggie <- function(x, growthoptimum) {
+  c = 0.1 # experimentally found constants
+  d = 0.25
+  maxgrowth = 2 # in optimom conditions I want to have double growth rate
+  y = maxgrowth/(1+c*exp(-(x-growthoptimum)*d))
   return(y)
 }
 ```
@@ -170,6 +192,7 @@ EvoOrganism using this gaussian function to calculate growth rate
 ``` r
 library("R6")
 source("gaussie.R")
+source("loggie.R")
 EvoOrganismGauss <- R6Class(
   "EvoOrganismGauss",
   inherit = EvoOrganism,
@@ -184,6 +207,17 @@ EvoOrganismGauss <- R6Class(
         cat(paste0("gaussie: ", t0, ".\n"))
         t1 <- t0 * 100
         return(t1)
+      }
+      else{
+        return(0)
+      }
+    },
+    determineNutrientParam = function() {
+      nx <- super$get_envNutrient()
+      ngrowthopt <- super$get_nutrientMin()
+      if (nx > 0) {
+        n1 <- loggie(nx, ngrowthopt)
+        return(n1)
       }
       else{
         return(0)

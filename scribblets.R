@@ -38,3 +38,17 @@ mw = 50
 sd = 10
 
 gaussie(x, mw, sd)
+
+
+log_func <- function(k) {
+  c = 0.1
+  d = 0.25
+  mw = 40
+  maxgrowth = 2
+  y = maxgrowth/(1+c*exp(-(k-mw)*d))
+  return(y)
+}
+
+xx <- seq(0,60, 0.01)
+yy <- sapply(xx, log_func)
+plot(xx, yy)

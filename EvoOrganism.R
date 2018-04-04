@@ -36,6 +36,12 @@ EvoOrganism <- R6Class("EvoOrganism",
                          set_envNutrient=function(val) {
                            self$envNutrient <- val
                          },
+                         get_envNutrient=function() {
+                           return(self$envNutrient)
+                         },
+                         get_nutrientMin=function() {
+                           return(self$nutrientMin) 
+                         },
                          get_envTemperature=function() {
                            return(self$envTemperature)
                          },

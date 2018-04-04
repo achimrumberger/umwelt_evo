@@ -22,6 +22,8 @@ knitr::read_chunk("EvoEnvironment.R")
 knitr::read_chunk("EvoOrganism.R")
 knitr::read_chunk("EvoOrganismGauss.R")
 knitr::read_chunk("gaussie.R")
+knitr::read_chunk("loggie.R")
+
 ```
 
 ## Create Environment Model Class 
@@ -83,8 +85,12 @@ x4 <- unlist(x3)
 qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', main = 'Organism Growth', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
 
 ```
+
 ## Evolution with temperature Gauss function 
 ``` {r gauss-function}
+```
+## Evolution with nutrient logistic function: the organismcount is supposed to double when it has enough nutrients
+```{r loggie-function}
 ```
 ## EvoOrganism using this gaussian function to calculate growth rate
 ``` {r evo-org-gauss}
