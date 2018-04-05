@@ -23,7 +23,7 @@ knitr::read_chunk("EvoOrganism.R")
 knitr::read_chunk("EvoOrganismGauss.R")
 knitr::read_chunk("gaussie.R")
 knitr::read_chunk("loggie.R")
-
+knitr::read_chunk("mutie.R")
 ```
 
 ## Create Environment Model Class 
@@ -122,5 +122,43 @@ for(kk in 1:1) {
 x3gauss <- lapply(OrgListGauss, function(x){return(x$orgCount) })
 x4gauss <- unlist(x3gauss)
 qplot(x4gauss, geom="histogram", xlab = 'number of organisms in one environment', main = 'Gauss Organism Growth', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+## let the orgs mutate- simple mutation of the optimal temperature
+```{r mutie-function}
+```
+
+##Create list for our 'gaussian' organism that is able to mutate. The length of this list is the same as that of the environment list.
+```{r make_gaussian_org_mutate_list}
+MutieOrgListGauss <- list()
+
+for (l in 1:length(EnvList) ) {
+  MutieOrgListGauss[[l]] <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+}
+```
+
+### Gaussian growth with mutation
+```{r let_it_grow_guassian_and_mutate, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
+for(kk in 1:1) {
+  for (l in 1:length(MutieOrgListGauss)) {
+    mutieOrgGauss <- MutieOrgListGauss[[l]]
+    envl <- EnvList[[l]]
+    mutieTemp <- mutie(mutieOrgGauss$get_tempOpt())
+    mutieOrgGauss$set_tempOpt(mutieTemp)
+    mutieOrgGauss$set_envTemperature(envl$temperature)
+    mutieOrgGauss$set_envNutrient(envl$nutrients)
+    mutieOrgGauss$determineGrowthrate()
+    mutieOrgGauss$determineOrgCount()
+  }
+  kk <- kk + 1
+}
+```
+
+### Evaluation - a frequency distribution of gaussian organism counts with mutation
+```{r gaussian_org_growth_with_mutation_graph, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
+x5gaussMutie <- lapply(MutieOrgListGauss, function(x){return(x$orgCount) })
+x6gaussMutie <- unlist(x5gaussMutie)
+qplot(x6gaussMutie, geom="histogram", xlab = 'number of organisms in one environment', main = 'Gauss Organism Growth with Mutation', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
 
 ```

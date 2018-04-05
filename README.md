@@ -243,3 +243,32 @@ for (j in 1:length(EnvList) ) {
 ### first Evaluation - a frequency distribution of gaussian organism counts
 
 ![](README_files/figure-markdown_github/gaussian_org_growth_graph-1.png)
+
+let the orgs mutate- simple mutation of the optimal temperature
+---------------------------------------------------------------
+
+``` r
+mutie <- function(mw) {
+  p <- c(0.01, 0.05, 0.88, 0.05, 0.01)
+  upper_limit = mw + 2
+  lower_limit = mw - 2
+  return(sample(lower_limit:upper_limit, 1, replace = T, prob = p))
+}
+```
+
+Create list for our 'gaussian' organism that is able to mutate. The length of this list is the same as that of the environment list.
+------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+MutieOrgListGauss <- list()
+
+for (l in 1:length(EnvList) ) {
+  MutieOrgListGauss[[l]] <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+}
+```
+
+### Gaussian growth with mutation
+
+### Evaluation - a frequency distribution of gaussian organism counts with mutation
+
+![](README_files/figure-markdown_github/gaussian_org_growth_with_mutation_graph-1.png)

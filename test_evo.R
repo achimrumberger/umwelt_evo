@@ -51,13 +51,6 @@ test_that('org count correct with for loop runs', {
 })
 
 
-envl1 <- EnvList[[1]]
-evoOrg5 <- EvoOrganism$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
-evoOrg5$set_envNutrient(envl1$nutrients)
-evoOrg5$set_envTemperature(envl1$temperature)
-evoOrg5$determineGrowthrate()
-evoOrg5$determineOrgCount()
-
 
 evoOrg11 <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
 evoOrg11$set_envNutrient(20)
@@ -65,6 +58,13 @@ evoOrg11$set_envTemperature(20)
 evoOrg11$determineGrowthrate()
 evoOrg11$determineOrgCount()
 test_that('org count correct', {
-  expect_equal(ceiling(evoOrg11$orgCount), 5)
-  expect_equal(ceiling(evoOrg11$growthrate), 5)
+  expect_equal(ceiling(evoOrg11$orgCount), 9)
+  expect_equal(ceiling(evoOrg11$growthrate), 9)
+})
+
+evoOrg12 <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+evoOrg12$set_tempOpt(29)
+tOpt1 <- evoOrg12$get_tempOpt()
+test_that('org temp correct', {
+  expect_equal(tOpt1, 29)
 })
