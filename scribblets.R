@@ -52,3 +52,27 @@ log_func <- function(k) {
 xx <- seq(0,60, 0.01)
 yy <- sapply(xx, log_func)
 plot(xx, yy)
+
+
+# vector of probabilities
+pnorm(c(60,65), mean=72, sd=15.2, lower.tail=TRUE) 
+
+#nested lists
+l <- list(list(1:3), list(5:8))             
+str(l)
+l[[1]] <- c(l[[1]], list(100:103))
+str(l)
+l[[1]][[1]]
+l[[1]][[2]]
+l[[1]][[1]][[2]]
+
+#nested R6 lists
+OrgList <- list()
+
+for (j in 1:10 ) {
+  OrgList[[j]] <- list(EvoOrganism$new(tempOpt = 20, nutrientMin = 20, orgCount = 1))
+}
+OrgList[[1]] <- c(OrgList[[1]], list(EvoOrganism$new(tempOpt = 30, nutrientMin = 30, orgCount = 1)))
+OrgList[[1]] 
+OrgList[[1]][[1]]
+OrgList[[1]][[2]]
