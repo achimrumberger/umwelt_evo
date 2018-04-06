@@ -66,7 +66,12 @@ l[[1]][[1]]
 l[[1]][[2]]
 l[[1]][[1]][[2]]
 
+
+
 #nested R6 lists
+
+source("EvoOrganism.R")
+source("EvoOrganismGauss.R")
 OrgList <- list()
 
 for (j in 1:10 ) {
@@ -75,4 +80,9 @@ for (j in 1:10 ) {
 OrgList[[1]] <- c(OrgList[[1]], list(EvoOrganism$new(tempOpt = 30, nutrientMin = 30, orgCount = 1)))
 OrgList[[1]] 
 OrgList[[1]][[1]]
-OrgList[[1]][[2]]
+
+# clone an existing organism
+abc <- OrgList[[1]][[2]]$clone()
+
+abcgaus <- EvoOrganismGauss$new(tempOpt = 20, nutrientMin = 20, orgCount = 1)
+abcgaus_clone <- abcgaus$clone()

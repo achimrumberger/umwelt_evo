@@ -93,7 +93,7 @@ qplot(x4, geom="histogram", xlab = 'number of organismis in one environment', ma
 ```{r loggie-function}
 ```
 ## EvoOrganism using this gaussian function to calculate growth rate
-``` {r evo-org-gauss}
+```{r evo-org-gauss}
 ```
 ### Create list of our 'gaussian' organism. The length of this list is the same as that of the environment list. 
 ```{r make_gaussian_org_list}
