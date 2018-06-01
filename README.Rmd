@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(R6)
 library(dplyr)
 library(ggplot2)
+library(sf)
 
 knitr::read_chunk("EvoEnvironment.R")
 knitr::read_chunk("EvoOrganism.R")
@@ -123,7 +124,10 @@ x3gauss <- lapply(OrgListGauss, function(x){return(x$orgCount) })
 x4gauss <- unlist(x3gauss)
 qplot(x4gauss, geom="histogram", xlab = 'number of organisms in one environment', main = 'Gauss Organism Growth', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
 
+
 ```
+
+
 
 ## let the orgs mutate- simple mutation of the optimal temperature
 ```{r mutie-function}
@@ -155,10 +159,22 @@ for(kk in 1:1) {
 }
 ```
 
+
 ### Evaluation - a frequency distribution of gaussian organism counts with mutation
 ```{r gaussian_org_growth_with_mutation_graph, echo=FALSE, results="hide", message = FALSE, warning=FALSE}
 x5gaussMutie <- lapply(MutieOrgListGauss, function(x){return(x$orgCount) })
 x6gaussMutie <- unlist(x5gaussMutie)
 qplot(x6gaussMutie, geom="histogram", xlab = 'number of organisms in one environment', main = 'Gauss Organism Growth with Mutation', binwidth = 0.7, fill=I("blue"), col=I("grey"),) + theme(plot.title = element_text(hjust = 0.5))
 
+```
+### plot the org count on NC map
+
+```{r orgcount_on_nc_map}
+
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+orgCount <- lapply(OrgListGauss, function(x) x$orgCount)
+oo <-unlist(orgCount)
+nc$orgCount <- oo
+ggplot(nc) + geom_sf(aes(fill = orgCount)) + theme(plot.title = element_text(hjust = 0.5)) + ggtitle("OrgCount")
 ```

@@ -271,4 +271,15 @@ for (l in 1:length(EnvList) ) {
 
 ### Evaluation - a frequency distribution of gaussian organism counts with mutation
 
-![](README_files/figure-markdown_github/gaussian_org_growth_with_mutation_graph-1.png)
+![](README_files/figure-markdown_github/gaussian_org_growth_with_mutation_graph-1.png) \#\#\# plot the org count on NC map
+
+``` r
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+orgCount <- lapply(OrgListGauss, function(x) x$orgCount)
+oo <-unlist(orgCount)
+nc$orgCount <- oo
+ggplot(nc) + geom_sf(aes(fill = orgCount)) + theme(plot.title = element_text(hjust = 0.5)) + ggtitle("OrgCount")
+```
+
+![](README_files/figure-markdown_github/orgcount_on_nc_map-1.png)
